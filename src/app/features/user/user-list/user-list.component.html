@@ -1,0 +1,25 @@
+<div class="user-management">
+  <h2>Управление пользователями</h2>
+  
+  <div class="add-user-form">
+    <h3>Добавить пользователя</h3>
+    <div class="form-group">
+      <input [(ngModel)]="newUser.name" placeholder="Имя" class="form-control">
+      <input [(ngModel)]="newUser.email" placeholder="Email" class="form-control">
+      <input [(ngModel)]="newUser.role" placeholder="Роль" class="form-control">
+      <button (click)="addUser()" class="btn btn-primary">Добавить</button>
+    </div>
+  </div>
+
+  <div class="users-list">
+    <h3>Список пользователей</h3>
+    <div class="user-card" *ngFor="let user of users">
+      <div class="user-info">
+        <strong>{{ user.name }}</strong>
+        <p>{{ user.email }}</p>
+        <span class="role">{{ user.role }}</span>
+      </div>
+      <button (click)="deleteUser(user.id)" class="btn btn-danger">Удалить</button>
+    </div>
+  </div>
+</div>
