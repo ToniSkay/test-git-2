@@ -1,0 +1,55 @@
+<div class="task-manager">
+  <h2>Управление задачами</h2>
+  
+  <div class="stats">
+    <div class="stat-item">
+      <span class="stat-number">{{ completedCount }}</span>
+      <span class="stat-label">Выполнено</span>
+    </div>
+    <div class="stat-item">
+      <span class="stat-number">{{ totalCount }}</span>
+      <span class="stat-label">Всего</span>
+    </div>
+  </div>
+
+  <div class="add-task-form">
+    <h3>Добавить задачу</h3>
+    <div class="form-group">
+      <input [(ngModel)]="newTask.title" placeholder="Название задачи" class="form-control">
+      <textarea [(ngModel)]="newTask.description" placeholder="Описание" class="form-control textarea"></textarea>
+      <select [(ngModel)]="newTask.priority" class="form-control">
+        <option value="low">Низкий</option>
+        <option value="medium">Средний</option>
+        <option value="high">Высокий</option>
+      </select>
+      <button (click)="addTask()" class="btn btn-primary">Добавить</button>
+    </div>
+  </div>
+
+  <div class="filter-section">
+    <label>
+      <input type="checkbox" [(ngModel)]="filterCompleted">
+      Показать только выполненные
+    </label>
+  </div>
+
+  <div class="tasks-list">
+    <h3>Список задач</h3>
+    <div class="task-card" *ngFor="let task of filteredTasks" [class.completed]="task.completed">
+      <div class="task-content">
+        <div class="task-header">
+          <input type="checkbox" [checked]="task.completed" (change)="toggleTask(task.id)" class="task-checkbox">
+          <h4 class="task-title">{{ task.title }}</h4>
+          <span class="priority priority-{{ task.priority }}">
+            {{ task.priority === 'high' ? 'Высокий' : task.priority === 'medium' ? 'Средний' : 'Низкий' }}
+          </span>
+        </div>
+        <p class="task-description">{{ task.description }}</p>
+        <div class="task-meta">
+          <span class="created-date">{{ task.createdAt | date:'dd.MM.yyyy' }}</span>
+          <button (click)="deleteTask(task.id)" class="btn btn-danger btn-sm">Удалить</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
